@@ -56,16 +56,14 @@ class FlutterScreenRecordingPlugin(
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-
-        val intent = data ?: Intent()
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
 
         if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 //initMediaRecorder();
-                    mMediaProjectionCallback = MediaProjectionCallback()
-                mMediaProjection = mProjectionManager?.getMediaProjection(resultCode, intent)
+
+                mMediaProjectionCallback = MediaProjectionCallback()
+                mMediaProjection = mProjectionManager?.getMediaProjection(resultCode, data)
                 mMediaProjection?.registerCallback(mMediaProjectionCallback, null)
                 mVirtualDisplay = createVirtualDisplay()
 
